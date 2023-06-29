@@ -7,7 +7,7 @@ import com.flipkart.jedi.bean.GymOwner;
 /*Interface for GymOwner Service */
 
 public interface GymOwnerGMSInterface {
-	public boolean gymOwnerRegister(GymOwner newGymOwner);
+	public boolean gymOwnerRegister(GymOwner newGymOwner) throws ;
 	public Gym addGym(Gym gym);
 	public boolean removeGym(int gymId);
 	public List<Gym> viewGym(String username);

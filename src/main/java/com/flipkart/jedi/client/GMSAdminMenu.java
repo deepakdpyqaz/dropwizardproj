@@ -9,13 +9,16 @@ import java.util.Scanner;
 
 import com.flipkart.jedi.bean.Gym;
 import com.flipkart.jedi.bean.GymOwner;
+import com.flipkart.jedi.exceptions.GymAlreadyApprovedException;
+import com.flipkart.jedi.exceptions.GymOwnerAlreadyApprovedException;
+import com.flipkart.jedi.exceptions.InvalidLoginCredentialsException;
 import com.flipkart.jedi.service.*;
 
 /**
  * 
  */
 public class GMSAdminMenu {
-	public void showAdminMenu(String username) {
+	public void showAdminMenu(String username) throws GymAlreadyApprovedException, GymOwnerAlreadyApprovedException, InvalidLoginCredentialsException {
 		Scanner in = new Scanner(System.in);
 		int adminChoice;
 		do {

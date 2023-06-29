@@ -104,6 +104,18 @@ public class GMSApplication {
 		catch (AccountNotApprovedException acne) {
 			System.out.println(acne.getMessage());
 			return;
+		} catch (GymAlreadyApprovedException e) {
+			throw new RuntimeException(e);
+		} catch (GymOwnerAlreadyApprovedException e) {
+			throw new RuntimeException(e);
+		} catch (SlotAlreadyBookedException e) {
+			throw new RuntimeException(e);
+		} catch (ClashingSlotNotCancelledException e) {
+			throw new RuntimeException(e);
+		} catch (NoClashingSlotException e) {
+			throw new RuntimeException(e);
+		} catch (SlotNotCancelledException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
