@@ -175,7 +175,12 @@ public class GMSCustomerMenu {
 		newCustomer.setGender(in.next());
 
 		CustomerGMSInterface cusSer = new CustomerGMSService();
-		cusSer.customerRegistration(newCustomer);
+		try {
+			cusSer.customerRegistration(newCustomer);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 
 		System.out.println("\nNew Customer Added\n");
 	}
