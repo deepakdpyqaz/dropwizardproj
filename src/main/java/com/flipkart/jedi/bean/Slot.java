@@ -16,7 +16,7 @@ public class Slot{
 	private int availSeats;
 	private int gymId;
 	private Date day;
-    
+
 	public int getSlotId() {
 		return slotId;
 	}

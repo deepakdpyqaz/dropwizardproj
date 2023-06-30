@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.flipkart.jedi.DAO.*;
 import com.flipkart.jedi.bean.*;
+import com.flipkart.jedi.exceptions.GymAlreadyExistsException;
+import com.flipkart.jedi.exceptions.GymNotRemovedException;
+import com.flipkart.jedi.exceptions.GymOwnerAlreadyRegisteredException;
 
 public class GymOwnerGMSService implements GymOwnerGMSInterface {
 /*
@@ -14,33 +17,33 @@ public class GymOwnerGMSService implements GymOwnerGMSInterface {
  * 4. add a new gym
  */
 	@Override
-	public boolean removeGym(int gymId) {
-		// TODO Auto-generated method stub
-		
+	public boolean removeGym(int gymId) throws GymNotRemovedException {
 		GymGMSDao gymDao = new GymGMSDAOImpl();
 		String res = gymDao.removeGym(gymId);
 		if(res.equals("Gym removed"))
 			return true;
 		return false;
 	}
-	@Override
-	public List<Gym> viewGym(String username) {
-		// TODO Auto-generated method stub
-		GymGMSDao gymDao = new GymGMSDAOImpl();
-		List<Gym> gymnasiums = gymDao.getAllMyGyms(username);
-		return gymnasiums;
-	}
 	
-	public boolean gymOwnerRegister(GymOwner newGymOwner) {
+	public boolean gymOwnerRegister(GymOwner newGymOwner) throws GymOwnerAlreadyRegisteredException {
 		GymOwnerGMSDao gymOwnerDao = new GymOwnerGMSDAOImpl();
 		gymOwnerDao.createGymOwner(newGymOwner);
 		return true;
 	}
 	@Override
-	public Gym addGym(Gym gym) {
-		
-		// TODO Auto-generated method stub
+	public Gym addGym(Gym gym) throws GymAlreadyExistsException {
 		GymGMSDao gymDao = new GymGMSDAOImpl();
 		return gymDao.createGym(gym);
+	}
+
+	@Override
+	public List<Gym> viewGym(String username){
+		GymGMSDao gymDao = new GymGMSDAOImpl();
+		List<Gym> gymnasiums = gymDao.getAllMyGyms(username);
+		return gymnasiums;
+	}
+
+	public int getGymId(Gym gym){
+		return gym.getGymId();
 	}
 }

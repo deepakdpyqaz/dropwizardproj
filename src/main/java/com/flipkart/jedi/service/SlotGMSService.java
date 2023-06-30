@@ -12,26 +12,29 @@ import com.flipkart.jedi.DAO.SlotGMSDAOImpl;
 import java.time.LocalDate;
 import java.sql.Date;
 import com.flipkart.jedi.constants.FlipFitConstants;
+import com.flipkart.jedi.exceptions.NoSlotsFoundException;
+import com.flipkart.jedi.exceptions.SlotNotCreatedException;
+
 /**
  * 
  */
 public class SlotGMSService implements SlotGMSInterface {
 
 	@Override
-	public List<Slot> getSlotsOfGym(int gym_id) {
+	public List<Slot> getSlotsOfGym(int gym_id) throws NoSlotsFoundException {
 		// TODO Auto-generated method stub
 		List<Slot> slots = new ArrayList<Slot>();
 		SlotGMSDao slotDao = new SlotGMSDAOImpl();
 		return slotDao.getSlotsOfGym(gym_id);
 	}
 	
-	public boolean isSlotAvailable(int slot_id) {
+	public boolean isSlotAvailable(int slot_id) throws NoSlotsFoundException {
 		SlotGMSDao slotDAO = new SlotGMSDAOImpl();
 		return slotDAO.isSlotAvailable(slot_id);
 	}
 
 	@Override
-	public boolean createSlots(List<Slot> slots) {
+	public boolean createSlots(List<Slot> slots) throws SlotNotCreatedException, NoSlotsFoundException {
 		List<Slot> advanced_slots = new ArrayList<Slot>();
 		for(Slot st:slots) {
 			for(int i=0;i<FlipFitConstants.ADVANCED_SLOT_BOOKING;i++) {

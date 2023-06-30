@@ -2,10 +2,7 @@ package com.flipkart.jedi.service;
 
 import com.flipkart.jedi.DAO.*;
 import com.flipkart.jedi.bean.Booking;
-import com.flipkart.jedi.exceptions.ClashingSlotNotCancelledException;
-import com.flipkart.jedi.exceptions.NoClashingSlotException;
-import com.flipkart.jedi.exceptions.SlotAlreadyBookedException;
-import com.flipkart.jedi.exceptions.SlotNotCancelledException;
+import com.flipkart.jedi.exceptions.*;
 
 /* Booking slot service implements 3 functions -
  * 1.allow a user to book slot, 
@@ -13,7 +10,7 @@ import com.flipkart.jedi.exceptions.SlotNotCancelledException;
  * 3.remove a slot booking
  * as well*/
 public class BookingSlotGMSService implements BookingSlotGMSInterface {
-	public boolean bookSlot(String username, int slot_id) throws SlotAlreadyBookedException, NoClashingSlotException {
+	public boolean bookSlot(String username, int slot_id) throws SlotAlreadyBookedException, NoClashingSlotException, NoSlotsFoundException {
 		SlotGMSDao slotDAO = new SlotGMSDAOImpl();
 		BookingGMSDao bookingDAO = new BookingGMSDAOImpl();
 		SlotGMSInterface slotSer = new SlotGMSService();

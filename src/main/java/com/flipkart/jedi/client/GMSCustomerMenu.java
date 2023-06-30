@@ -7,10 +7,7 @@ import java.util.*;
 import java.util.Scanner;
 
 import com.flipkart.jedi.bean.*;
-import com.flipkart.jedi.exceptions.ClashingSlotNotCancelledException;
-import com.flipkart.jedi.exceptions.NoClashingSlotException;
-import com.flipkart.jedi.exceptions.SlotAlreadyBookedException;
-import com.flipkart.jedi.exceptions.SlotNotCancelledException;
+import com.flipkart.jedi.exceptions.*;
 import com.flipkart.jedi.service.*;
 import java.text.SimpleDateFormat;
 
@@ -19,7 +16,7 @@ import java.text.SimpleDateFormat;
  */
 public class GMSCustomerMenu {
 	
-	public static void showCustomerMenu(String username) throws SlotAlreadyBookedException, ClashingSlotNotCancelledException, NoClashingSlotException, SlotNotCancelledException {
+	public static void showCustomerMenu(String username) throws SlotAlreadyBookedException, ClashingSlotNotCancelledException, NoClashingSlotException, SlotNotCancelledException, NoSlotsFoundException {
 		Scanner in = new Scanner(System.in);
 		GMSCustomerMenu gmsCustomerMenu = new GMSCustomerMenu();
 		createCustomerMenu(username);
@@ -62,7 +59,7 @@ public class GMSCustomerMenu {
 
 	}
 	
-	public void showAllGym(String username) throws ClashingSlotNotCancelledException, SlotAlreadyBookedException, NoClashingSlotException, SlotNotCancelledException {
+	public void showAllGym(String username) throws ClashingSlotNotCancelledException, SlotAlreadyBookedException, NoClashingSlotException, SlotNotCancelledException, NoSlotsFoundException {
 
 		CustomerGMSInterface cusSer = new CustomerGMSService();
 		SlotGMSInterface slotSer = new SlotGMSService();
@@ -156,7 +153,7 @@ public class GMSCustomerMenu {
 		}
 	}
 	
-	public void customerRegistration() {
+	public void customerRegistration() throws RoleNotFoundException {
 	
 		RoleGMSInterface roleGMSSer = new RoleGMSService();
 

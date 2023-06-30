@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.jedi.bean.Gym;
-import com.flipkart.jedi.bean.User;
 import com.flipkart.jedi.constants.SQLConstants;
 import com.flipkart.jedi.utils.DBUtils;
 import java.sql.Connection;

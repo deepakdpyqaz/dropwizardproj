@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.flipkart.jedi.exceptions.*;
 import com.flipkart.jedi.service.GymOwnerGMSService;
 import com.flipkart.jedi.service.RoleGMSInterface;
 import com.flipkart.jedi.service.RoleGMSService;
@@ -22,7 +23,7 @@ import java.sql.Time;
  * 
  */
 public class GMSGymOwnerMenu {
-	public void showGymOwnerMenu(String username) {
+	public void showGymOwnerMenu(String username) throws GymNotRemovedException, GymAlreadyExistsException, SlotNotCreatedException, NoSlotsFoundException {
 		Scanner in = new Scanner(System.in);
 		System.out.println("\nWelcome " + username + " to FlipFit\n");
 		System.out.println("Menu:");
@@ -120,7 +121,7 @@ public class GMSGymOwnerMenu {
 	}
 
 // **remove parameters **
-	public void gymOwnerRegistration(List<User> userList, List<GymOwner> gymOwnerList) {
+	public void gymOwnerRegistration(List<User> userList, List<GymOwner> gymOwnerList) throws GymOwnerAlreadyRegisteredException, GymAlreadyRegisteredException, RoleNotFoundException {
 		Scanner in = new Scanner(System.in);
 
 		RoleGMSInterface roleGMSSer = new RoleGMSService();

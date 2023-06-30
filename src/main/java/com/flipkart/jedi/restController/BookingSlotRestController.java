@@ -1,6 +1,7 @@
 package com.flipkart.jedi.restController;
 
 import com.flipkart.jedi.exceptions.NoClashingSlotException;
+import com.flipkart.jedi.exceptions.NoSlotsFoundException;
 import com.flipkart.jedi.exceptions.SlotAlreadyBookedException;
 import com.flipkart.jedi.exceptions.SlotNotCancelledException;
 import com.flipkart.jedi.service.BookingSlotGMSInterface;
@@ -24,6 +25,8 @@ public class BookingSlotRestController {
             return Response.ok(bookingSlotSer.bookSlot(username, slot_id)).build();
         } catch (SlotAlreadyBookedException | NoClashingSlotException ex) {
             return Response.status(Response.Status.CONFLICT).entity(ex.getMessage()).build();
+        } catch (NoSlotsFoundException e) {
+            return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
         }
     }
     @Path("cancel-slot")

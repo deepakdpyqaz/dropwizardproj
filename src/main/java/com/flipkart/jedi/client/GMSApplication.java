@@ -5,6 +5,8 @@ import com.flipkart.jedi.service.*;
 import com.flipkart.jedi.bean.*;
 import com.flipkart.jedi.exceptions.*;
 
+import javax.ws.rs.core.Response;
+
 public class GMSApplication {
 
 	public static List<User> userList = new ArrayList<>();
@@ -27,12 +29,14 @@ public class GMSApplication {
 					break;
 				case 2:
 					// student registration
-					gmsApplication.customerRegistration();
+						gmsApplication.customerRegistration();
 					break;
 				case 3:
+					//gym owner registration
 					gmsApplication.gymownerRegistration();
 					break;
 				case 4:
+					// user password update
 					gmsApplication.updatePassword();
 				default:
 					System.out.println("Invalid Output");
@@ -40,8 +44,10 @@ public class GMSApplication {
 				createMainMenu();
 				userInput = in.nextInt();
 			}
-		} catch (InputMismatchException excep) {
+		} catch (InputMismatchException | GymOwnerAlreadyRegisteredException | GymAlreadyRegisteredException |
+				 RoleNotFoundException ex) {
 			System.out.println("Wrong user input, try again!");
+			System.out.println(ex.getMessage());
 			menu();
 		}
 	}
@@ -116,31 +122,41 @@ public class GMSApplication {
 			throw new RuntimeException(e);
 		} catch (SlotNotCancelledException e) {
 			throw new RuntimeException(e);
+		} catch (GymNotRemovedException e) {
+			throw new RuntimeException(e);
+		} catch (GymAlreadyExistsException e) {
+			throw new RuntimeException(e);
+		} catch (RoleNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (SlotNotCreatedException e) {
+			throw new RuntimeException(e);
+		} catch (NoSlotsFoundException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
-	public void customerRegistration() {
+	public void customerRegistration() throws RoleNotFoundException {
 		GMSCustomerMenu cusMenu = new GMSCustomerMenu();
 		cusMenu.customerRegistration();
 	}
 
-	public void gymownerRegistration() {
+	public void gymownerRegistration() throws GymOwnerAlreadyRegisteredException, GymAlreadyRegisteredException, RoleNotFoundException {
 		GMSGymOwnerMenu gymOwnerMenu = new GMSGymOwnerMenu();
 		gymOwnerMenu.gymOwnerRegistration(userList, gymOwnerList);
 
 	}
 
 	public boolean updatePassword() {
-		UserGMSInterface userSerr = new UserGMSService();
+		UserGMSInterface userSer = new UserGMSService();
 		Scanner in = new Scanner(System.in);
 		System.out.print("Please enter your username: ");
-		String usernamee = in.nextLine();
+		String username = in.nextLine();
 		System.out.print("Please enter your old password: ");
 		String oldPassword = in.nextLine();
 		System.out.print("Please enter your new password: ");
 		String newPassword = in.nextLine();
 		in.close();
-		if (userSerr.updatePassword(usernamee, oldPassword, newPassword))
+		if (userSer.updatePassword(username, oldPassword, newPassword))
 			return true;
 		return false;
 	}
