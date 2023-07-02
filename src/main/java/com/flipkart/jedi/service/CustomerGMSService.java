@@ -5,6 +5,7 @@ import java.util.List;
 import com.flipkart.jedi.bean.*;
 import com.flipkart.jedi.DAO.*;
 import com.flipkart.jedi.exceptions.InvalidLoginCredentialsException;
+import com.flipkart.jedi.exceptions.UsernameAlreadyUsedException;
 
 /* 
  * CustomerService implements functions to allow a customer to -
@@ -36,7 +37,7 @@ public class CustomerGMSService implements CustomerGMSInterface {
 	public boolean cancelBooking(String username , int bookingNo) {
 		return true;
 	}
-	public boolean customerRegistration(Customer newCustomer) {
+	public boolean customerRegistration(Customer newCustomer) throws UsernameAlreadyUsedException {
 		CustomerGMSDao custDao = new CustomerGMSDAOImpl();
 		custDao.createCustomer(newCustomer);
 		

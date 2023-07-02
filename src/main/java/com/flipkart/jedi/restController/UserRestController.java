@@ -22,13 +22,18 @@ public class UserRestController {
     public static Response login(User user){
         UserGMSInterface userSer = new UserGMSService();
         try{
+            System.out.println(user);
             return Response.ok(userSer.login(user.getUsername(),user.getPassword())).build();
         }
         catch(InvalidLoginCredentialsException ilce){
-            return Response.status(Response.Status.UNAUTHORIZED).entity(ilce.getMessage()).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("{\"error\":\""+ilce.getMessage()+"\"}").build();
         }
         catch(AccountNotApprovedException anae){
             return Response.status(Response.Status.UNAUTHORIZED).entity(anae.getMessage()).build();
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

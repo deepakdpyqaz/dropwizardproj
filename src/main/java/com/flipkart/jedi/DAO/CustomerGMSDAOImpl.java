@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import com.flipkart.jedi.bean.Customer;
 import com.flipkart.jedi.bean.Registration;
@@ -44,6 +45,9 @@ public class CustomerGMSDAOImpl implements CustomerGMSDao {
 			create_customer_stmt.setString(4, customer.getGender());
 			create_customer_stmt.execute();
 			return true;
+		}
+		catch(SQLIntegrityConstraintViolationException sicve){
+			return false;
 		}
 		catch(SQLException se) {
 			se.printStackTrace();
