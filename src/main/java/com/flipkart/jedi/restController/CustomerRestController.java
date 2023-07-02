@@ -5,6 +5,15 @@ import com.flipkart.jedi.service.CustomerGMSInterface;
 import com.flipkart.jedi.service.CustomerGMSService;
 
 import javax.ws.rs.*;
+import com.flipkart.jedi.bean.Customer;
+import com.flipkart.jedi.exceptions.UsernameAlreadyUsedException;
+import com.flipkart.jedi.service.CustomerGMSInterface;
+import com.flipkart.jedi.service.CustomerGMSService;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import com.flipkart.jedi.bean.Customer;
@@ -23,13 +32,24 @@ public class CustomerRestController {
             return Response.status(Response.Status.UNAUTHORIZED).entity(ilce.getMessage()).build();
         }
     }
+    @Path("register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @POST
     public static Response customerRegistration(Customer customer){
         CustomerGMSInterface customerSer = new CustomerGMSService();
         try {
             boolean isRegistered = customerSer.customerRegistration(customer);
-            return Response.status(Response.Status.CREATED).entity("{\"message\":\"Create\"}").build();
+            System.out.println(isRegistered);
+            if(isRegistered){
+                return Response.status(Response.Status.CREATED).entity("{\"message\":\"Create\"}").build();
+            }
+            else{
+                throw new UsernameAlreadyUsedException(customer.getCustomerId());
+            }
         }catch(Exception e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{\"message\":\"Internal server error\"}").build();
         }
     }
 }

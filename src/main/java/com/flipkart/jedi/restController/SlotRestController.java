@@ -13,11 +13,11 @@ import java.util.List;
 
 @Path("slot")
 public class SlotRestController {
-    @Path("get-slots-of-gym")
+    @Path("get-slots-of-gym/{gymId}")
     @GET
     @Produces("application/json")
     @Consumes("application/json")
-    public static Response getSlotsOfGym(int gymId){
+    public static Response getSlotsOfGym(@PathParam("gymId") int gymId){
         SlotGMSInterface slotSer = new SlotGMSService();
         try{
             return Response.ok(slotSer.getSlotsOfGym(gymId)).build();

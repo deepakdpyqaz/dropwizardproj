@@ -38,10 +38,10 @@ public class CustomerGMSService implements CustomerGMSInterface {
 		return true;
 	}
 	public boolean customerRegistration(Customer newCustomer) throws UsernameAlreadyUsedException {
+		RoleGMSDao roleSer = new RoleGMSDAOImpl();
+		newCustomer.setRoleId(roleSer.getRoleIdByName("Customer"));
 		CustomerGMSDao custDao = new CustomerGMSDAOImpl();
-		custDao.createCustomer(newCustomer);
-		
-		return true;
+		return custDao.createCustomer(newCustomer);
 	}
 	@Override
 	public boolean cancelBooking(int booking_id) {

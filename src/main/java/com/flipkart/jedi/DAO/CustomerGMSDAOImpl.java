@@ -8,11 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-
 import com.flipkart.jedi.bean.Customer;
 import com.flipkart.jedi.bean.Registration;
 import com.flipkart.jedi.constants.SQLConstants;
 import com.flipkart.jedi.utils.DBUtils;
+import org.checkerframework.checker.units.qual.C;
 
 /**
  * 
@@ -47,6 +47,7 @@ public class CustomerGMSDAOImpl implements CustomerGMSDao {
 			return true;
 		}
 		catch(SQLIntegrityConstraintViolationException sicve){
+			sicve.printStackTrace();
 			return false;
 		}
 		catch(SQLException se) {
@@ -77,4 +78,5 @@ public class CustomerGMSDAOImpl implements CustomerGMSDao {
 		}
 		return null;
 	}
+
 }
