@@ -32,4 +32,5 @@ public class SQLConstants {
 	public static final String CHECK_IS_GYM_OWNER_APPROVED = "SELECT is_approved FROM Gym_owner WHERE gym_owner_id=?";
 	public static final String APPROVE_GYM_OWNER = "UPDATE Gym_owner SET is_approved=true WHERE gym_owner_id=?";
 	public static final String GET_ALL_GYMS_OWNERS = "SELECT * FROM Gym_owner JOIN User ON User.username=Gym_owner.gym_owner_id ORDER BY is_approved";
+    public static final String GET_CUSTOMER_DETAILS = "SELECT * FROM Customer where customerId=?";
 }

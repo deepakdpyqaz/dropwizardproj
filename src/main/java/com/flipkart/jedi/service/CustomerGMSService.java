@@ -2,10 +2,9 @@ package com.flipkart.jedi.service;
 
 import java.util.List;
 
-import com.flipkart.jedi.bean.Booking;
-import com.flipkart.jedi.bean.Customer;
-import com.flipkart.jedi.bean.Gym;
+import com.flipkart.jedi.bean.*;
 import com.flipkart.jedi.DAO.*;
+import com.flipkart.jedi.exceptions.InvalidLoginCredentialsException;
 
 /* 
  * CustomerService implements functions to allow a customer to -
@@ -49,5 +48,11 @@ public class CustomerGMSService implements CustomerGMSInterface {
 		BookingGMSDao bookingDao = new BookingGMSDAOImpl();
 		return bookingDao.cancelBooking(booking_id);
 	}
-	
+
+	@Override
+	public Registration getAllDetails(String user_id) throws InvalidLoginCredentialsException {
+		CustomerGMSDao customerGMSDao = new CustomerGMSDAOImpl();
+		return customerGMSDao.getAllDetails(user_id);
+	}
+
 }

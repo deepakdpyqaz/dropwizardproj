@@ -13,6 +13,11 @@ public class Registration {
 	private String phoneNo;
 	private String address;
 	private String dob;
+
+	public Registration(String regId, String name, String gender, String phoneNo, String address, String dob) {
+	}
+
+
 	public String getRegId() {
 		return regId;
 	}

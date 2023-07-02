@@ -10,4 +10,5 @@ public interface UserGMSInterface {
 	public boolean logout();
 	public boolean updatePassword(String username, String oldPassword, String newPassword);
 	public void userRegistration(User newUser);
+
 }

@@ -11,6 +11,7 @@ public class Customer extends User{
 	private String address;
 	private String phone;
 	private String gender;
+
 	public String getCustomerId() {
 		return customerId;
 	}
@@ -45,11 +46,9 @@ public class Customer extends User{
 	}
 	public Customer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Customer(String username, String password, int roleId, String name) {
 		super(username, password, roleId, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	

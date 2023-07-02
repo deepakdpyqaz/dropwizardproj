@@ -5,9 +5,11 @@ package com.flipkart.jedi.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.flipkart.jedi.bean.Customer;
+import com.flipkart.jedi.bean.Registration;
 import com.flipkart.jedi.constants.SQLConstants;
 import com.flipkart.jedi.utils.DBUtils;
 
@@ -49,4 +51,26 @@ public class CustomerGMSDAOImpl implements CustomerGMSDao {
 		return false;
 	}
 
+	@Override
+	public Registration getAllDetails(String userId) {
+		Connection conn = DBUtils.getConnection();
+		try {
+			PreparedStatement get_customer_details_stmt = conn.prepareStatement(SQLConstants.GET_CUSTOMER_DETAILS);
+			PreparedStatement stmt = conn.prepareStatement(get_customer_details_stmt.toString());
+			stmt.setString(1, userId);
+			ResultSet rs = stmt.executeQuery();
+			Registration user = new Registration(
+					rs.getString("regId"),
+					rs.getString("address"),
+					rs.getString("phoneNo"),
+					rs.getString("name"),
+					rs.getString("gender"),
+					rs.getString("dob")
+			);
+			return user;
+		}catch (SQLException sqlException){
+			sqlException.printStackTrace();
+		}
+		return null;
+	}
 }

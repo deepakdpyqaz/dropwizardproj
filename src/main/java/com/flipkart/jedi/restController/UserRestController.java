@@ -3,13 +3,13 @@ package com.flipkart.jedi.restController;
 import com.flipkart.jedi.bean.User;
 import com.flipkart.jedi.exceptions.AccountNotApprovedException;
 import com.flipkart.jedi.exceptions.InvalidLoginCredentialsException;
+import com.flipkart.jedi.service.CustomerGMSInterface;
+import com.flipkart.jedi.service.CustomerGMSService;
 import com.flipkart.jedi.service.UserGMSInterface;
 import com.flipkart.jedi.service.UserGMSService;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("user")
