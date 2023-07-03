@@ -26,14 +26,14 @@ public class SlotRestController {
         }
     }
 
-    @Path("get-slot-availability")
+    @Path("get-slot-availability/{slotId}")
     @GET
     @Produces("application/json")
     @Consumes("application/json")
-    public static Response isSlotAvailable(int gymId){
+    public static Response isSlotAvailable(@PathParam("slotId") int slotId){
         SlotGMSInterface slotSer = new SlotGMSService();
         try{
-            return Response.ok(slotSer.isSlotAvailable(gymId)).build();
+            return Response.ok(slotSer.isSlotAvailable(slotId)).build();
         } catch(NoSlotsFoundException ex){
             return Response.status(Response.Status.EXPECTATION_FAILED).entity(ex.getMessage()).build();
         }

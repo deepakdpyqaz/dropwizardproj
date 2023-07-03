@@ -17,5 +17,6 @@ public class App extends Application<Configuration> {
         environment.jersey().register(CustomerRestController.class);
         environment.jersey().register(GymRestController.class);
         environment.jersey().register(SlotRestController.class);
+        environment.jersey().register(BookingSlotRestController.class);
     }
 }

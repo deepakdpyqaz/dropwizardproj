@@ -38,7 +38,7 @@ public class SlotGMSService implements SlotGMSInterface {
 		List<Slot> advanced_slots = new ArrayList<Slot>();
 		for(Slot st:slots) {
 			for(int i=0;i<FlipFitConstants.ADVANCED_SLOT_BOOKING;i++) {
-				Slot new_slot = new Slot(st.getGymId(),st.getSlot_start_time(),st.getSlot_start_time(),st.getAvailSeats(),st.getGymId(),st.getDay());
+				Slot new_slot = new Slot(st.getGymId(),st.getSlot_start_time(),st.getSlot_end_time(),st.getAvailSeats(),st.getGymId(),st.getDay());
 				LocalDate dt = LocalDate.now().plusDays(i);
 				new_slot.setDay(Date.valueOf(dt));
 				advanced_slots.add(new_slot);

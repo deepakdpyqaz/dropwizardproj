@@ -1,5 +1,6 @@
 package com.flipkart.jedi.restController;
 
+import com.flipkart.jedi.bean.Booking;
 import com.flipkart.jedi.exceptions.NoClashingSlotException;
 import com.flipkart.jedi.exceptions.NoSlotsFoundException;
 import com.flipkart.jedi.exceptions.SlotAlreadyBookedException;
@@ -7,19 +8,16 @@ import com.flipkart.jedi.exceptions.SlotNotCancelledException;
 import com.flipkart.jedi.service.BookingSlotGMSInterface;
 import com.flipkart.jedi.service.BookingSlotGMSService;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 @Path("booking_slot")
 public class BookingSlotRestController {
-    @Path("book-slot")
+    @Path("book-slot/{username}/{slot_id}")
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public static Response bookSlot(String username, int slot_id){
+    public static Response bookSlot(@PathParam("username") String username, @PathParam("slot_id") int slot_id){
         BookingSlotGMSInterface bookingSlotSer = new BookingSlotGMSService();
         try{
             return Response.ok(bookingSlotSer.bookSlot(username, slot_id)).build();
@@ -42,13 +40,15 @@ public class BookingSlotRestController {
         }
     }
 
-    @Path("clashing-slot")
+    @Path("clashing-slot/{username}/{slot_id}")
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public static Response getClashingBooking(String username, int slot_id){
+    public static Response getClashingBooking(@PathParam("username") String username, @PathParam("slot_id") int slot_id){
         BookingSlotGMSInterface bookingSlotSer = new BookingSlotGMSService();
         try{
+            Booking book =  bookingSlotSer.getClashingBooking(username, slot_id);
+            System.out.println(book);
             return Response.ok(bookingSlotSer.getClashingBooking(username, slot_id)).build();
         } catch (NoClashingSlotException e) {
             return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
