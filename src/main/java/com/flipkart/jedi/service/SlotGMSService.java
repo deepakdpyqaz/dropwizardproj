@@ -48,4 +48,11 @@ public class SlotGMSService implements SlotGMSInterface {
 		return slotDao.createSlot(advanced_slots);
 	}
 
+	@Override
+	public Slot getSlot(int slotId){
+		Slot slot = new Slot();
+		SlotGMSDao slotDao = new SlotGMSDAOImpl();
+		return slotDao.getSlot(slotId);
+	}
+
 }

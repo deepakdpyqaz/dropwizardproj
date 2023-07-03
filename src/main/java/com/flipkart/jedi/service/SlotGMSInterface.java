@@ -16,4 +16,6 @@ public interface SlotGMSInterface {
 	public List<Slot> getSlotsOfGym(int gym_id) throws NoSlotsFoundException;
 	public boolean isSlotAvailable(int slot_id) throws NoSlotsFoundException;
 	public boolean createSlots(List<Slot> slots) throws SlotNotCreatedException, NoSlotsFoundException;
+
+    Slot getSlot(int slotId);
 }

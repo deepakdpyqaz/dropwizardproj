@@ -53,4 +53,18 @@ public class SlotRestController {
         }
     }
 
+    @Path("get-slot/{slot_id}")
+    @GET
+    @Produces("application/json")
+    public static Response gertSlots(@PathParam("slot_id") int slot_id){
+        SlotGMSInterface slotSer = new SlotGMSService();
+        System.out.println(slot_id);
+        try{
+            System.out.println(slotSer.getSlot(slot_id));
+            return Response.ok(slotSer.getSlot(slot_id)).build();
+        }
+        catch(Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

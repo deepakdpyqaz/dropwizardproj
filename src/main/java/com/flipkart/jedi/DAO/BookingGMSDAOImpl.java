@@ -64,6 +64,7 @@ public class BookingGMSDAOImpl implements BookingGMSDao {
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
 				Booking booking = new Booking(rs.getInt("booking_id"), rs.getInt("slot_id"), rs.getString("customer_id"), rs.getDate("date"));
+				System.out.println(booking);
 				return booking;
 			}
 		}catch(SQLException se) {

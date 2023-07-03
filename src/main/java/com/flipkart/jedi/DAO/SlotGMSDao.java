@@ -7,4 +7,6 @@ public interface SlotGMSDao {
 	public boolean isSlotAvailable(int slot_id);
 	public boolean decrementSeats(int slot_id);
 	public boolean createSlot(List<Slot> slots);
+
+    Slot getSlot(int slot_id);
 }

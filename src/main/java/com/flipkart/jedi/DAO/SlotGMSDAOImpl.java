@@ -6,7 +6,7 @@ import com.flipkart.jedi.bean.Slot;
 import com.flipkart.jedi.utils.DBUtils;
 import com.flipkart.jedi.constants.SQLConstants;
 import java.sql.*;
-import com.flipkart.jedi.constants.FlipFitConstants;
+
 public class SlotGMSDAOImpl implements SlotGMSDao {
 
 	@Override
@@ -89,6 +89,24 @@ public class SlotGMSDAOImpl implements SlotGMSDao {
 		}
 		return false;
 	}
-	
+
+	@Override
+	public Slot getSlot(int slot_id){
+		Connection conn = DBUtils.getConnection();
+		try{
+			System.out.println(slot_id);
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM SLOT WHERE slot_id=?");
+			stmt.setInt(1,slot_id);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				return new Slot(rs.getInt("slot_id"),rs.getTime("slot_start_time"), rs.getTime("slot_end_time"), rs.getInt("available_seats"),rs.getInt("gym_id"),rs.getDate("day"));
+			}
+			return null;
+		}
+		catch(SQLException se){
+			se.printStackTrace();
+		}
+		return null;
+	}
 
 }

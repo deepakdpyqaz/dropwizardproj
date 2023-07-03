@@ -7,9 +7,13 @@ import com.flipkart.jedi.exceptions.SlotAlreadyBookedException;
 import com.flipkart.jedi.exceptions.SlotNotCancelledException;
 import com.flipkart.jedi.service.BookingSlotGMSInterface;
 import com.flipkart.jedi.service.BookingSlotGMSService;
+import com.flipkart.jedi.service.CustomerGMSInterface;
+import com.flipkart.jedi.service.CustomerGMSService;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("booking_slot")
 public class BookingSlotRestController {
@@ -27,11 +31,11 @@ public class BookingSlotRestController {
             return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
         }
     }
-    @Path("cancel-slot")
+    @Path("cancel-slot/{booking_id}")
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public static Response cancelSlot(int booking_id){
+    public static Response cancelSlot(@PathParam("booking_id") int booking_id){
         BookingSlotGMSInterface bookingSlotSer = new BookingSlotGMSService();
         try{
             return Response.ok(bookingSlotSer.cancelSlot(booking_id)).build();
@@ -48,10 +52,23 @@ public class BookingSlotRestController {
         BookingSlotGMSInterface bookingSlotSer = new BookingSlotGMSService();
         try{
             Booking book =  bookingSlotSer.getClashingBooking(username, slot_id);
-            System.out.println(book);
-            return Response.ok(bookingSlotSer.getClashingBooking(username, slot_id)).build();
+            if(book==null){
+                return Response.status(Response.Status.OK).entity("{\"clashing\":\"false\"}").build();
+            }
+            return Response.status(Response.Status.OK).entity("{\"clashing\":\"true\"}").build();
         } catch (NoClashingSlotException e) {
             return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
         }
+    }
+
+    @Path("get_all_bookings/{username}")
+    @GET
+    @Consumes("application/json")
+    @Produces("application/json")
+    public static Response getAllBookings(@PathParam("username") String username)
+    {
+        CustomerGMSInterface customerSer = new CustomerGMSService();
+        List<Booking> bookings = customerSer.showAllBookings(username);
+        return Response.ok(bookings).build();
     }
 }

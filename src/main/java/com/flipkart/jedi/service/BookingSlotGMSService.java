@@ -25,6 +25,7 @@ public class BookingSlotGMSService implements BookingSlotGMSInterface {
 				return false;
 			}
 			boolean isBooked = bookingDAO.bookSlot(username, slot_id);
+			System.out.println(isBooked);
 			if (isBooked) {
 				return slotDAO.decrementSeats(slot_id);
 			} else {
